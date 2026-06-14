@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respawn Labs | The Future of Campus Printing</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0a0e17;
+            --bg-darker: #05070a;
+            --accent: #00ffcc;
+            --accent-hover: #00e6b8;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --surface: #111827;
+            --surface-border: #1e293b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Typography */
+        h1, h2, h3 { color: #fff; font-weight: 800; }
+        .highlight { color: var(--accent); }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; }
+        .text-left { text-align: left; }
+        .text-center { text-align: center; }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--accent); color: #000; }
+        .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
+        .btn-secondary { background: transparent; color: var(--text-main); border: 1px solid var(--surface-border); }
+        .btn-secondary:hover { background: var(--surface); }
+        .btn-large { padding: 1rem 2rem; font-size: 1.1rem; }
+
+        /* Navbar */
+        nav {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(10, 14, 23, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--surface-border);
+            transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(10, 14, 23, 0.95);
+        }
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+        .logo { font-size: 1.5rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .logo span { color: var(--accent); }
+        .logo-icon { width: 24px; height: 24px; background: var(--accent); border-radius: 4px; display: inline-block; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+        .nav-links a:hover { color: #fff; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+        .hero h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero p { font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem; }
+        .hero-buttons { display: flex; gap: 1rem; }
+
+        /* Sections */
+        .section { padding: 6rem 0; }
+        .bg-darker { background-color: var(--bg-darker); }
+
+        /* Grids & Cards */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--surface-border);
+            padding: 2.5rem;
+            border-radius: 16px;
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .icon { font-size: 3rem; margin-bottom: 1.5rem; }
+        .card h3 { margin-bottom: 1rem; font-size: 1.5rem; }
+        .card p { color: var(--text-muted); }
+
+        /* Technology */
+        .tech-container { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        .feature-list { list-style: none; margin-top: 2rem; }
+        .feature-list li { margin-bottom: 1rem; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+        .tech-image {
+            background: var(--surface);
+            height: 400px;
+            border-radius: 24px;
+            border: 1px solid var(--surface-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .chip {
+            padding: 1rem 2rem;
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 50px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        footer { background: var(--bg-darker); border-top: 1px solid var(--surface-border); padding: 4rem 0 2rem; }
+        .footer-container { display: flex; justify-content: space-between; margin-bottom: 3rem; }
+        .footer-brand h3 { margin-bottom: 0.5rem; }
+        .footer-brand p { color: var(--text-muted); }
+        .footer-links { display: flex; gap: 2rem; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-bottom { text-align: center; color: var(--text-muted); font-size: 0.9rem; padding-top: 2rem; border-top: 1px solid var(--surface-border); }
+
+        /* Animations */
+        .hero-graphic { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); width: 400px; height: 400px; z-index: 1; }
+        .circle { width: 100%; height: 100%; border-radius: 50%; background: radial-gradient(circle, rgba(0,255,204,0.1) 0%, rgba(0,0,0,0) 70%); }
+        .cta-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 255, 204, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links, #nav-cta { display: none; }
+            .hero h1 { font-size: 3rem; }
+            .hero-buttons { flex-direction: column; }
+            .tech-container { grid-template-columns: 1fr; }
+            .hero-graphic { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <span class="logo-icon"></span> Respawn <span>Labs</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#technology">Technology</a></li>
+            </ul>
+            <a href="#download" class="btn btn-primary" id="nav-cta">Get the App</a>
+        </div>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="container hero-content">
+            <h1>Automated Printing. <br><span class="highlight">Zero Friction.</span></h1>
+            <p>Skip the lines. Upload securely on the go, scan the QR at our IoT-enabled kiosks, and grab your prints instantly. Built for fast-paced campus life.</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary btn-large">Download for iOS & Android</a>
+                <a href="#technology" class="btn btn-secondary btn-large">See Technology</a>
+            </div>
+        </div>
+        <div class="hero-graphic">
+            <div class="circle"></div>
+        </div>
+    </header>
+
+    <section id="how-it-works" class="section">
+        <div class="container">
+            <h2 class="section-title">Drop Dead Simple.</h2>
+            <div class="grid-3">
+                <div class="card">
+                    <div class="icon">📄</div>
+                    <h3>1. Upload</h3>
+                    <p>Send your PDF to the Respawn network directly from your phone or laptop. Your files are encrypted and secure.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">📱</div>
+                    <h3>2. Scan QR</h3>
+                    <p>Walk up to any Respawn Kiosk. Scan the screen to authenticate your print job instantly.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">⚡</div>
+                    <h3>3. Collect</h3>
+                    <p>Your document prints in seconds. Payment is seamlessly deducted from your digital wallet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="technology" class="section bg-darker">
+        <div class="container tech-container">
+            <div class="tech-text">
+                <h2 class="section-title text-left">Powered by Smart IoT</h2>
+                <p>Respawn Labs isn't just a printer in a box. We utilize custom ESP32 microcontrollers and industrial-grade sensor arrays to monitor machine health, paper levels, and toner in real-time.</p>
+                <ul class="feature-list">
+                    <li>✔️ 99.9% Uptime with Predictive Maintenance</li>
+                    <li>✔️ 5-Array Digital IR Debugging for Jam Prevention</li>
+                    <li>✔️ Ultra-fast API response times</li>
+                    <li>✔️ Contactless Wallet Integration</li>
+                </ul>
+            </div>
+            <div class="tech-image">
+                <div class="chip">IoT Core Active</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="download" class="section cta-section">
+        <div class="container text-center">
+            <h2>Ready to Respawn your productivity?</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">Join thousands of students saving time every semester.</p>
+            <button class="btn btn-primary btn-large cta-pulse">Get Your First 10 Pages Free</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <h3>Respawn Labs</h3>
+                <p>Next-gen automated retail.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#">Support</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Respawn Labs. Proudly built in Chennai, Tamil Nadu.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
